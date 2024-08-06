@@ -26,26 +26,26 @@ def get_artist_info(artist_id):
     artist = sp.artist(artist_id)
     return artist
 
-# while True:
-#     current_track = ""
-#     if sp.current_playback():
-#         current_track = sp.current_playback()
-#     else:
-#         while True:
-#             if sp.current_playback():
-#                 current_track = sp.current_playback()
-#                 break
-#     name = current_track['item']['name']
-#     id = current_track['item']['id']
-#     artist_id = current_track['item']['artists'][0]['id']
-#     artist_info = get_artist_info(artist_id)
-#     genres = artist_info['genres']
-#     tot = ""
-#     for genre in genres:
-#         tot += genre
-#     doc = db.collection('gstavya').document('music').get()
-#     data = doc.to_dict()
-#     array = data.get('song', [])
-#     if name != array[len(array)-1]:
-#         db.collection('gstavya').document('music').update({"song": firestore.ArrayUnion([name])})
-#         db.collection('gstavya').document('music').update({"genre": firestore.ArrayUnion([tot])})
+while True:
+    current_track = ""
+    if sp.current_playback():
+        current_track = sp.current_playback()
+    else:
+        while True:
+            if sp.current_playback():
+                current_track = sp.current_playback()
+                break
+    name = current_track['item']['name']
+    id = current_track['item']['id']
+    artist_id = current_track['item']['artists'][0]['id']
+    artist_info = get_artist_info(artist_id)
+    genres = artist_info['genres']
+    tot = ""
+    for genre in genres:
+        tot += genre
+    doc = db.collection('gstavya').document('music').get()
+    data = doc.to_dict()
+    array = data.get('song', [])
+    if name != array[len(array)-1]:
+        db.collection('gstavya').document('music').update({"song": firestore.ArrayUnion([name])})
+        db.collection('gstavya').document('music').update({"genre": firestore.ArrayUnion([tot])})
